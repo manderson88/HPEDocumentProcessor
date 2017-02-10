@@ -14,7 +14,7 @@ namespace HPE.Automation.Extensions.HPEGeneralProcessor
     /// </summary>
     public class UserInterface : System.Windows.Forms.UserControl
     {
-        private System.Windows.Forms.TextBox txtMSKeyin1;
+        private System.Windows.Forms.TextBox txtMDLAppName;
         private System.Windows.Forms.TextBox txtMSKeyin2;
         private System.Windows.Forms.TextBox txtMSKeyin3;
         private Label label1;
@@ -57,8 +57,8 @@ namespace HPE.Automation.Extensions.HPEGeneralProcessor
                 if (null != myDocProcConfigData.PWPassword)
                     this.txtPWPassword.Text = myDocProcConfigData.PWPassword;
 
-                if (null != myDocProcConfigData.MSKeyin1)
-                    this.txtMSKeyin1.Text = myDocProcConfigData.MSKeyin1;
+                if (null != myDocProcConfigData.MDLAppName)
+                    this.txtMDLAppName.Text = myDocProcConfigData.MDLAppName;
 
                 if (null != myDocProcConfigData.MSKeyin2)
                     this.txtMSKeyin2.Text = myDocProcConfigData.MSKeyin2;
@@ -106,11 +106,11 @@ namespace HPE.Automation.Extensions.HPEGeneralProcessor
             }
         }
 
-        public string MSKeyin1
+        public string MDLAppName
         {
             get
             {
-                return this.txtMSKeyin1.Text;
+                return this.txtMDLAppName.Text;
             }
         }
 
@@ -153,7 +153,7 @@ namespace HPE.Automation.Extensions.HPEGeneralProcessor
         /// </summary>
         private void InitializeComponent()
         {
-            this.txtMSKeyin1 = new System.Windows.Forms.TextBox();
+            this.txtMDLAppName = new System.Windows.Forms.TextBox();
             this.txtMSKeyin2 = new System.Windows.Forms.TextBox();
             this.txtMSKeyin3 = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -170,10 +170,10 @@ namespace HPE.Automation.Extensions.HPEGeneralProcessor
             // 
             // txtMSKeyin1
             // 
-            this.txtMSKeyin1.Location = new System.Drawing.Point(102, 9);
-            this.txtMSKeyin1.Name = "txtMSKeyin1";
-            this.txtMSKeyin1.Size = new System.Drawing.Size(202, 20);
-            this.txtMSKeyin1.TabIndex = 2;
+            this.txtMDLAppName.Location = new System.Drawing.Point(102, 9);
+            this.txtMDLAppName.Name = "MDL Application";
+            this.txtMDLAppName.Size = new System.Drawing.Size(202, 20);
+            this.txtMDLAppName.TabIndex = 2;
             // 
             // txtMSKeyin2
             // 
@@ -287,7 +287,7 @@ namespace HPE.Automation.Extensions.HPEGeneralProcessor
             this.Controls.Add(this.label3);
             this.Controls.Add(this.txtMSKeyin3);
             this.Controls.Add(this.txtMSKeyin2);
-            this.Controls.Add(this.txtMSKeyin1);
+            this.Controls.Add(this.txtMDLAppName);
             this.Name = "UserInterface";
             this.Size = new System.Drawing.Size(320, 338);
             this.ResumeLayout(false);

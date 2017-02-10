@@ -10,7 +10,7 @@ namespace HPE.Automation.Extensions.HPEGeneralProcessor
     {
         private string m_sPWUser = null;
         private string m_sPWPassword = null;
-        private string m_sMSKeyin1 = null;
+        private string m_sMDLAppName = null;
         private string m_sMSKeyin2 = null;
         private string m_sMSKeyin3 = null;
         private string m_sMSKeyin4 = null;
@@ -22,7 +22,7 @@ namespace HPE.Automation.Extensions.HPEGeneralProcessor
         {
             m_sPWUser = null;
             m_sPWPassword = null;
-            m_sMSKeyin1 = null;
+            m_sMDLAppName = null;
             m_sMSKeyin2 = null;
             m_sMSKeyin3 = null;
             m_sMSKeyin4 = null;
@@ -43,8 +43,8 @@ namespace HPE.Automation.Extensions.HPEGeneralProcessor
                 xmlElem.SetAttribute("PWUser", m_sPWUser);
             if (this.m_sPWPassword != null)
                 xmlElem.SetAttribute("PWPassword", m_sPWPassword);
-            if (this.m_sMSKeyin1 != null)
-                xmlElem.SetAttribute("MSKeyin1", m_sMSKeyin1);
+            if (this.m_sMDLAppName != null)
+                xmlElem.SetAttribute("MDLAppName", m_sMDLAppName);
             if (this.m_sMSKeyin2 != null)
                 xmlElem.SetAttribute("MSKeyin2", m_sMSKeyin2);
             if (this.m_sMSKeyin3 != null)
@@ -69,7 +69,7 @@ namespace HPE.Automation.Extensions.HPEGeneralProcessor
         {
             m_sPWUser = xmlConfigData.GetAttribute("PWUser");
             m_sPWPassword = xmlConfigData.GetAttribute("PWPassword");
-            m_sMSKeyin1 = xmlConfigData.GetAttribute("MSKeyin1");
+            m_sMDLAppName = xmlConfigData.GetAttribute("MDLAppName");
             m_sMSKeyin2 = xmlConfigData.GetAttribute("MSKeyin2");
             m_sMSKeyin3 = xmlConfigData.GetAttribute("MSKeyin3");
             m_sMSKeyin4 = xmlConfigData.GetAttribute("MSKeyin4");
@@ -150,15 +150,15 @@ namespace HPE.Automation.Extensions.HPEGeneralProcessor
             }
         }
 
-        public string MSKeyin1
+        public string MDLAppName
         {
             get
             {
-                return m_sMSKeyin1;
+                return m_sMDLAppName;
             }
             set
             {
-                m_sMSKeyin1 = value;
+                m_sMDLAppName = value;
             }
         }
 

@@ -45,7 +45,7 @@ namespace HPE.Automation.Extensions.HPEGeneralProcessor
             MSProcessorInstruction pi = new MSProcessorInstruction();
             pi.DocumentProcessorName = DocumentProcessorName;
             pi.DocumentProcessorGuid = DocumentProcessorGuid.ToString();
-            pi.Step = Constants.Steps.ScanDGNFile;
+            pi.Step = Constants.Steps.KeyInStep;
             pi.MicroStationMessage = GenerateMicroStationInstructions(asContext);
             return pi;
         }
@@ -60,7 +60,12 @@ namespace HPE.Automation.Extensions.HPEGeneralProcessor
                     msm.AddKeyin(s);
             }
         }
-
+        /// <summary>
+        /// this will load the mdl application and login to PW (Optional)
+        /// then queue the command to execute on the "current" file.
+        /// </summary>
+        /// <param name="asContext"></param>
+        /// <returns></returns>
         private MicroStationMessage GenerateMicroStationInstructions(ASContext asContext)
         {
             MicroStationMessage msm = new MicroStationMessage();
@@ -74,11 +79,11 @@ namespace HPE.Automation.Extensions.HPEGeneralProcessor
                 ConfigData myDocProcConfigData = new ConfigData((XmlElement)xmlNode);
 
                 // by convention use this as then name of your mdl application
-                if (0 < myDocProcConfigData.MSKeyin1.Length)
+                if (0 < myDocProcConfigData.MDLAppName.Length)
                 {
                     string sMDLPath;/* = PwApiWrapper.Util.GetProjectWisePath();
                     sMDLPath += @"bin\";*/
-                    sMDLPath = myDocProcConfigData.MSKeyin1;
+                    sMDLPath = myDocProcConfigData.MDLAppName;
 
                     string loadKeyin = "mdl load \"" + sMDLPath + "\"";
 
@@ -113,8 +118,8 @@ namespace HPE.Automation.Extensions.HPEGeneralProcessor
 
                 if (0 < myDocProcConfigData.MSKeyin5.Length)
                     ParseKeyinString(myDocProcConfigData.MSKeyin5, msm);
-
-                msm.AddKeyin("SAVE DESIGN");
+                //turn off the save design feature
+                //msm.AddKeyin("SAVE DESIGN");
             }
 
             return msm;
@@ -127,7 +132,7 @@ namespace HPE.Automation.Extensions.HPEGeneralProcessor
                 LogServer.LogASConstants.LAYER_SmartDispatcher, LogServer.LEVEL_Info, "Creating Replace Instruction");
             di.DocumentProcessorName = DocumentProcessorName;
             di.DocumentProcessorGuid = DocumentProcessorGuid.ToString();
-            di.Step = Constants.Steps.IndexingWidgetAttributes;
+            di.Step = Constants.Steps.ReplaceFileStep;
             return di;
         }
 
@@ -151,12 +156,12 @@ namespace HPE.Automation.Extensions.HPEGeneralProcessor
                 nextPi = GenerateFirstCADIndexInstruction(asContext);
                // nextPi = GenerateFileReplaceInstruction(previousPi);
             }
-            else if (Constants.Steps.ScanDGNFile == previousPi.Step)
+            else if (Constants.Steps.KeyInStep == previousPi.Step)
             {
                 // Step 2 - replace the file
                 nextPi = GenerateFileReplaceInstruction(previousPi);
             }
-            else if (Constants.Steps.IndexingWidgetAttributes == previousPi.Step)
+            else if (Constants.Steps.ReplaceFileStep == previousPi.Step)
             {
                 // Step 3 - to exit for reporting and cleanup 
                 nextPi = GenerateExitInstruction(previousPi);

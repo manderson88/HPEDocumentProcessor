@@ -109,7 +109,7 @@
       <HintPath>..\..\..\..\Program Files (x86)\Bentley\MicroStationV8iSS3\MicroStation\assemblies\PwApiWrapper.dll</HintPath>
     </Reference>
     <Reference Include="pwwrapper">
-      <HintPath>..\ASUpdateBV\pwwrapper.dll</HintPath>
+      <HintPath>..\..\..\Program Files (x86)\Bentley\ProjectWise\bin\pwwrapper.dll</HintPath>
     </Reference>
     <Reference Include="System">
       <Name>System</Name>

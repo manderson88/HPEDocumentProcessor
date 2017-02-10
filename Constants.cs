@@ -17,9 +17,9 @@ namespace HPE.Automation.Extensions.HPEGeneralProcessor
 
         public abstract class Steps
         {
-            public static readonly string IndexingWidgetAttributes
+            public static readonly string ReplaceFileStep
                 = "Replace Document File";
-            public static readonly string ScanDGNFile
+            public static readonly string KeyInStep
                 = "Process MicroStation Keyins";
         }
     }

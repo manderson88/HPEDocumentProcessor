@@ -175,7 +175,7 @@ namespace HPE.Automation.Extensions.HPEGeneralProcessor
             pi.ProcessorType = ASConstants.DelegateProcessorTypeID;
             pi.DocumentProcessorName = DocumentProcessorName;
             pi.DocumentProcessorGuid = DocumentProcessorGuid.ToString();
-            pi.Step = Constants.Steps.IndexingWidgetAttributes;
+            pi.Step = Constants.Steps.ReplaceFileStep;
 
             try
             {
@@ -340,7 +340,7 @@ namespace HPE.Automation.Extensions.HPEGeneralProcessor
                 jd.DataSource.DeleteConfigVar("CopyOutDocumentCount_" + jd.ID.ToString());
                 jd.DataSource.SetConfigVar("CopyOutDocumentCount_" + jd.ID.ToString(), iDocCount.ToString());
 
-                this.m_sLogFileName = String.Format("{0}\\Job_{1}.log", cfgData.MSKeyin1, jd.ID.ToString());
+                this.m_sLogFileName = String.Format("{0}\\Job_{1}.log", cfgData.MDLAppName, jd.ID.ToString());
 
                 if (System.IO.File.Exists(m_sLogFileName))
                     System.IO.File.Delete(m_sLogFileName);
@@ -552,9 +552,10 @@ namespace HPE.Automation.Extensions.HPEGeneralProcessor
 
                 System.Text.StringBuilder vaultPathBuilder =
                     new System.Text.StringBuilder(2048);
-                if (PWWrapper.aaApi_GetProjectNamePath(iProjectNo,
+                if (PwApiWrapper.dmscli.aaApi_GetProjectNamePath2(iProjectNo,true,'/',vaultPathBuilder,2048))
+                    //aaApi_GetProjectNamePath(iProjectNo,
                // if (PwApiWrapper.dmscli.aaApi_GetProjectNamePath(iProjectNo,
-                    false, '/', vaultPathBuilder, 2048))
+                    //false, '/', vaultPathBuilder, 2048))
                 {
                     xmlDoc.DocumentElement.SetAttribute("ProjectPath", vaultPathBuilder.ToString());
                 }
@@ -692,7 +693,7 @@ namespace HPE.Automation.Extensions.HPEGeneralProcessor
             pi.ProcessorType = ASConstants.DelegateProcessorTypeID;
             pi.DocumentProcessorName = DocumentProcessorName;
             pi.DocumentProcessorGuid = DocumentProcessorGuid.ToString();
-            pi.Step = Constants.Steps.IndexingWidgetAttributes;
+            pi.Step = Constants.Steps.ReplaceFileStep;
 
             try
             {
@@ -722,7 +723,7 @@ namespace HPE.Automation.Extensions.HPEGeneralProcessor
                         String sJustFileName = System.IO.Path.GetFileName(fileName);
 
                         string sOutputPath =
-                            myDocProcConfigData.MSKeyin1 +
+                            myDocProcConfigData.MDLAppName +
                             GetRichProjectName(asContext.WorkingDocumentInfo.VaultID);
 
                         if (!System.IO.Directory.Exists(sOutputPath))

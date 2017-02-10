@@ -87,7 +87,7 @@ namespace HPE.Automation.Extensions.HPEGeneralProcessor
                 ConfigData myDocProcConfigData = new ConfigData();
                 myDocProcConfigData.PWUser = myDocProcessorControls.PWUser;
                 myDocProcConfigData.PWPassword = myDocProcessorControls.PWPassword;
-                myDocProcConfigData.MSKeyin1 = myDocProcessorControls.MSKeyin1;
+                myDocProcConfigData.MDLAppName = myDocProcessorControls.MDLAppName;
                 myDocProcConfigData.MSKeyin2 = myDocProcessorControls.MSKeyin2;
                 myDocProcConfigData.MSKeyin3 = myDocProcessorControls.MSKeyin3;
                 myDocProcConfigData.MSKeyin4 = myDocProcessorControls.MSKeyin4;
