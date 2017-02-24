@@ -1,3 +1,46 @@
+/*--------------------------------------------------------------------------------------+
+//----------------------------------------------------------------------------
+// DOCUMENT ID:   
+// LIBRARY:       
+// CREATOR:       Mark Anderson
+// DATE:          02-15-2017
+//
+// NAME:          UserInterface.cs
+//
+// DESCRIPTION:   Utility.
+//
+// REFERENCES:    ProjectWise.
+//
+// ---------------------------------------------------------------------------
+// NOTICE
+//    NOTICE TO ALL PERSONS HAVING ACCESS HERETO:  This document or
+//    recording contains computer software or related information
+//    constituting proprietary trade secrets of Black & Veatch, which
+//    have been maintained in "unpublished" status under the copyright
+//    laws, and which are to be treated by all persons having acdcess
+//    thereto in manner to preserve the status thereof as legally
+//    protectable trade secrets by neither using nor disclosing the
+//    same to others except as may be expressly authorized in advance
+//    by Black & Veatch.  However, it is intended that all prospective
+//    rights under the copyrigtht laws in the event of future
+//    "publication" of this work shall also be reserved; for which
+//    purpose only, the following is included in this notice, to wit,
+//    "(C) COPYRIGHT 1997 BY BLACK & VEATCH, ALL RIGHTS RESERVED"
+// ---------------------------------------------------------------------------
+/*
+/* CHANGE LOG
+ * $Archive: /ProjectWise/ASFramework/HPEDocumentProcessor/UserInterface.cs $
+ * $Revision: 1 $
+ * $Modtime: 2/15/17 7:18a $
+ * $History: UserInterface.cs $
+ * 
+ * *****************  Version 1  *****************
+ * User: Mark.anderson Date: 2/15/17    Time: 7:45a
+ * Created in $/ProjectWise/ASFramework/HPEDocumentProcessor
+ * A General purpose document processor.  This will  use an application
+ * name and command line to load in to the msprocessor
+ * 
+*/
 using System;
 using System.Collections;
 using System.ComponentModel;
@@ -15,10 +58,10 @@ namespace HPE.Automation.Extensions.HPEGeneralProcessor
     public class UserInterface : System.Windows.Forms.UserControl
     {
         private System.Windows.Forms.TextBox txtMDLAppName;
-        private System.Windows.Forms.TextBox txtMSKeyin2;
-        private System.Windows.Forms.TextBox txtMSKeyin3;
+        private System.Windows.Forms.TextBox txtPrimaryKeyn;
+        private System.Windows.Forms.TextBox txtPWLoginCMD;
         private Label label1;
-        private Label label5;
+        private Label lblPWLoginCMD;
         private Label label4;
         private Label label3;
         private TextBox txtPWUser;
@@ -60,11 +103,11 @@ namespace HPE.Automation.Extensions.HPEGeneralProcessor
                 if (null != myDocProcConfigData.MDLAppName)
                     this.txtMDLAppName.Text = myDocProcConfigData.MDLAppName;
 
-                if (null != myDocProcConfigData.MSKeyin2)
-                    this.txtMSKeyin2.Text = myDocProcConfigData.MSKeyin2;
+                if (null != myDocProcConfigData.AppKeyin)
+                    this.txtPrimaryKeyn.Text = myDocProcConfigData.AppKeyin;
 
-                if (null != myDocProcConfigData.MSKeyin3)
-                    this.txtMSKeyin3.Text = myDocProcConfigData.MSKeyin3;
+                if (null != myDocProcConfigData.PWLoginCMD)
+                    this.txtPWLoginCMD.Text = myDocProcConfigData.PWLoginCMD;
 
                 if (null != myDocProcConfigData.MSKeyin4)
                     this.txtMSKeyin4.Text = myDocProcConfigData.MSKeyin4;
@@ -90,19 +133,19 @@ namespace HPE.Automation.Extensions.HPEGeneralProcessor
             }
         }
 
-        public string MSKeyin3
+        public string PWLoginCMD
         {
             get
             {
-                return this.txtMSKeyin3.Text;
+                return this.txtPWLoginCMD.Text;
             }
         }
 
-        public string MSKeyin2
+        public string AppKeyin
         {
             get
             {
-                return this.txtMSKeyin2.Text;
+                return this.txtPrimaryKeyn.Text;
             }
         }
 
@@ -154,10 +197,10 @@ namespace HPE.Automation.Extensions.HPEGeneralProcessor
         private void InitializeComponent()
         {
             this.txtMDLAppName = new System.Windows.Forms.TextBox();
-            this.txtMSKeyin2 = new System.Windows.Forms.TextBox();
-            this.txtMSKeyin3 = new System.Windows.Forms.TextBox();
+            this.txtPrimaryKeyn = new System.Windows.Forms.TextBox();
+            this.txtPWLoginCMD = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
+            this.lblPWLoginCMD = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.txtPWUser = new System.Windows.Forms.TextBox();
@@ -168,26 +211,26 @@ namespace HPE.Automation.Extensions.HPEGeneralProcessor
             this.txtMSKeyin5 = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
-            // txtMSKeyin1
+            // txtMDLAppName
             // 
             this.txtMDLAppName.Location = new System.Drawing.Point(102, 9);
-            this.txtMDLAppName.Name = "MDL Application";
+            this.txtMDLAppName.Name = "txtMDLAppName";
             this.txtMDLAppName.Size = new System.Drawing.Size(202, 20);
             this.txtMDLAppName.TabIndex = 2;
             // 
-            // txtMSKeyin2
+            // txtPrimaryKeyn
             // 
-            this.txtMSKeyin2.Location = new System.Drawing.Point(102, 49);
-            this.txtMSKeyin2.Name = "txtMSKeyin2";
-            this.txtMSKeyin2.Size = new System.Drawing.Size(202, 20);
-            this.txtMSKeyin2.TabIndex = 3;
+            this.txtPrimaryKeyn.Location = new System.Drawing.Point(102, 49);
+            this.txtPrimaryKeyn.Name = "txtPrimaryKeyn";
+            this.txtPrimaryKeyn.Size = new System.Drawing.Size(202, 20);
+            this.txtPrimaryKeyn.TabIndex = 3;
             // 
-            // txtMSKeyin3
+            // txtPWLoginCMD
             // 
-            this.txtMSKeyin3.Location = new System.Drawing.Point(102, 88);
-            this.txtMSKeyin3.Name = "txtMSKeyin3";
-            this.txtMSKeyin3.Size = new System.Drawing.Size(202, 20);
-            this.txtMSKeyin3.TabIndex = 4;
+            this.txtPWLoginCMD.Location = new System.Drawing.Point(102, 88);
+            this.txtPWLoginCMD.Name = "txtPWLoginCMD";
+            this.txtPWLoginCMD.Size = new System.Drawing.Size(202, 20);
+            this.txtPWLoginCMD.TabIndex = 4;
             // 
             // label1
             // 
@@ -198,14 +241,14 @@ namespace HPE.Automation.Extensions.HPEGeneralProcessor
             this.label1.Text = "The command line will be executed with the copied out file name as first argument" +
     ".  The \"Arguments\" value will be appended after the copied out file name.";
             // 
-            // label5
+            // lblPWLoginCMD
             // 
-            this.label5.Location = new System.Drawing.Point(24, 89);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(72, 16);
-            this.label5.TabIndex = 15;
-            this.label5.Text = "Secondary Keyin:";
-            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.lblPWLoginCMD.Location = new System.Drawing.Point(24, 89);
+            this.lblPWLoginCMD.Name = "lblPWLoginCMD";
+            this.lblPWLoginCMD.Size = new System.Drawing.Size(72, 16);
+            this.lblPWLoginCMD.TabIndex = 15;
+            this.lblPWLoginCMD.Text = "PW Login CMD:";
+            this.lblPWLoginCMD.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // label4
             // 
@@ -263,14 +306,14 @@ namespace HPE.Automation.Extensions.HPEGeneralProcessor
             // 
             this.txtMSKeyin4.Location = new System.Drawing.Point(102, 186);
             this.txtMSKeyin4.Name = "txtMSKeyin4";
-            this.txtMSKeyin4.Size = new System.Drawing.Size(100, 20);
+            this.txtMSKeyin4.Size = new System.Drawing.Size(202, 20);
             this.txtMSKeyin4.TabIndex = 21;
             // 
             // txtMSKeyin5
             // 
             this.txtMSKeyin5.Location = new System.Drawing.Point(102, 212);
             this.txtMSKeyin5.Name = "txtMSKeyin5";
-            this.txtMSKeyin5.Size = new System.Drawing.Size(100, 20);
+            this.txtMSKeyin5.Size = new System.Drawing.Size(202, 20);
             this.txtMSKeyin5.TabIndex = 22;
             // 
             // UserInterface
@@ -282,14 +325,14 @@ namespace HPE.Automation.Extensions.HPEGeneralProcessor
             this.Controls.Add(this.txtPWPassword);
             this.Controls.Add(this.txtPWUser);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.label5);
+            this.Controls.Add(this.lblPWLoginCMD);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.txtMSKeyin3);
-            this.Controls.Add(this.txtMSKeyin2);
+            this.Controls.Add(this.txtPWLoginCMD);
+            this.Controls.Add(this.txtPrimaryKeyn);
             this.Controls.Add(this.txtMDLAppName);
             this.Name = "UserInterface";
-            this.Size = new System.Drawing.Size(320, 338);
+            this.Size = new System.Drawing.Size(337, 338);
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -1,3 +1,47 @@
+/*--------------------------------------------------------------------------------------+
+//----------------------------------------------------------------------------
+// DOCUMENT ID:   
+// LIBRARY:       
+// CREATOR:       Mark Anderson
+// DATE:          02-15-2017
+//
+// NAME:          SmartDispatcherExtension.cs
+//
+// DESCRIPTION:   Utility.
+//
+// REFERENCES:    ProjectWise.
+//
+// ---------------------------------------------------------------------------
+// NOTICE
+//    NOTICE TO ALL PERSONS HAVING ACCESS HERETO:  This document or
+//    recording contains computer software or related information
+//    constituting proprietary trade secrets of Black & Veatch, which
+//    have been maintained in "unpublished" status under the copyright
+//    laws, and which are to be treated by all persons having acdcess
+//    thereto in manner to preserve the status thereof as legally
+//    protectable trade secrets by neither using nor disclosing the
+//    same to others except as may be expressly authorized in advance
+//    by Black & Veatch.  However, it is intended that all prospective
+//    rights under the copyrigtht laws in the event of future
+//    "publication" of this work shall also be reserved; for which
+//    purpose only, the following is included in this notice, to wit,
+//    "(C) COPYRIGHT 1997 BY BLACK & VEATCH, ALL RIGHTS RESERVED"
+// ---------------------------------------------------------------------------
+/*
+/* CHANGE LOG
+ * $Archive: /ProjectWise/ASFramework/HPEDocumentProcessor/SmartDispatcherExtension.cs $
+ * $Revision: 1 $
+ * $Modtime: 2/15/17 7:18a $
+ * $History: SmartDispatcherExtension.cs $
+ * 
+ * *****************  Version 1  *****************
+ * User: Mark.anderson Date: 2/15/17    Time: 7:45a
+ * Created in $/ProjectWise/ASFramework/HPEDocumentProcessor
+ * A General purpose document processor.  This will  use an application
+ * name and command line to load in to the msprocessor
+ * 
+*/
+
 using System;
 using System.Xml;
 using Bentley.Automation;
@@ -10,7 +54,10 @@ using PwApiWrapper;
 namespace HPE.Automation.Extensions.HPEGeneralProcessor
 {
     /// <summary>
-    /// Summary description for SmartDispatcherExtension.
+    /// Summary description for SmartDispatcherExtension.  This is called to 
+    /// interact with the ms processor.  it will process the job definition.  
+    /// For this application it set the command to load the application then
+    /// queue the command to process the file.
     /// </summary>
     public class SmartDispatcherExtension : ASSmartDispatcherExtension
     {
@@ -32,7 +79,11 @@ namespace HPE.Automation.Extensions.HPEGeneralProcessor
             {
             }
         }
-
+        /// <summary>
+        /// this is only for processing design files.
+        /// </summary>
+        /// <param name="filePath"></param>
+        /// <returns></returns>
         private bool isCADFile(string filePath)
         {
             if (filePath.ToLower().EndsWith("dgn") || filePath.ToLower().EndsWith("dwg"))
@@ -85,36 +136,42 @@ namespace HPE.Automation.Extensions.HPEGeneralProcessor
                     sMDLPath += @"bin\";*/
                     sMDLPath = myDocProcConfigData.MDLAppName;
 
-                    string loadKeyin = "mdl load \"" + sMDLPath + "\"";
+                    string loadKeyin = "mdl silentload \"" + sMDLPath + "\"";
 
                     msm.AddKeyin(loadKeyin);
                 }
 
                 // by convention use this to log in to PW from MS
-                if (0 < myDocProcConfigData.MSKeyin2.Length)
+                if (0 < myDocProcConfigData.PWLoginCMD.Length)
                 {
                     if (null != myDocProcConfigData.PWUser &&
                         null != myDocProcConfigData.PWPassword)
                     {
-                        string sLoginCmd = myDocProcConfigData.MSKeyin2 + " " +
-                            asContext.JobDefinition.ProjectWiseDataSource + "," +
-                            myDocProcConfigData.PWUser + "," +
-                            myDocProcConfigData.PWPassword + "," +
-                            asContext.WorkingDocumentInfo.VaultID.ToString() + "," +
+                        string sLoginCmd = myDocProcConfigData.PWLoginCMD + " " +
+                            asContext.JobDefinition.ProjectWiseDataSource + " " +
+                            myDocProcConfigData.PWUser + " " +
+                            myDocProcConfigData.PWPassword + " " +
+                            asContext.WorkingDocumentInfo.VaultID.ToString() + " " +
                             asContext.WorkingDocumentInfo.DocumentID.ToString();
+
                         msm.AddKeyin(sLoginCmd);
                     }
                     else
                     {
-                        ParseKeyinString(myDocProcConfigData.MSKeyin2, msm);
-                    }
+                    if (0 < myDocProcConfigData.MSKeyin4.Length)
+                        ParseKeyinString(myDocProcConfigData.MSKeyin4+" " +
+                            asContext.WorkingDocumentInfo.VaultID.ToString() + " " +
+                            asContext.WorkingDocumentInfo.DocumentID.ToString()
+                            , msm);
+                     }
                 }
 
-                if (0 < myDocProcConfigData.MSKeyin3.Length)
-                    ParseKeyinString(myDocProcConfigData.MSKeyin3, msm);
-
-                if (0 < myDocProcConfigData.MSKeyin4.Length)
-                    ParseKeyinString(myDocProcConfigData.MSKeyin4, msm);
+                if (0 < myDocProcConfigData.AppKeyin.Length)
+                    ParseKeyinString(myDocProcConfigData.AppKeyin + " " +
+                            asContext.WorkingDocumentInfo.VaultID.ToString() + " " +
+                            asContext.WorkingDocumentInfo.DocumentID.ToString(), msm);
+                
+                
 
                 if (0 < myDocProcConfigData.MSKeyin5.Length)
                     ParseKeyinString(myDocProcConfigData.MSKeyin5, msm);
